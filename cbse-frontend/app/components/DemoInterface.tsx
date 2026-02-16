@@ -2,7 +2,7 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { createWalletClient, custom, parseApi } from 'viem';
+import { createWalletClient, custom, parseAbi } from 'viem';
 import 'viem/window';
 
 const ATTESTATION_REGISTRY_ABI = [
