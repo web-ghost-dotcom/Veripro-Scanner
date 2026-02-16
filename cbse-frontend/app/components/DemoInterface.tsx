@@ -2,6 +2,25 @@
 
 import { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { createWalletClient, custom, parseApi } from 'viem';
+import 'viem/window';
+
+const ATTESTATION_REGISTRY_ABI = [
+    {
+        "type": "function",
+        "name": "commitAttestation",
+        "inputs": [
+            { "name": "resultHash", "type": "bytes32" },
+            { "name": "passed", "type": "bool" },
+            { "name": "contractHash", "type": "bytes32" },
+            { "name": "v", "type": "uint8" },
+            { "name": "r", "type": "bytes32" },
+            { "name": "s", "type": "bytes32" }
+        ],
+        "outputs": [],
+        "stateMutability": "nonpayable"
+    }
+];
 
 const DEFAULT_CONTRACT = `// SPDX-License-Identifier: MIT
 pragma solidity ^0.8.0;
@@ -53,6 +72,71 @@ export default function DemoInterface() {
     const [isLoading, setIsLoading] = useState(false);
     const [result, setResult] = useState<VerificationResponse | null>(null);
     const [error, setError] = useState<string | null>(null);
+    const [isPublishing, setIsPublishing] = useState(false);
+    const [txHash, setTxHash] = useState<string | null>(null);
+    const [publishError, setPublishError] = useState<string | null>(null);
+
+    const handlePublish = async () => {
+        if (!result?.attestation) return;
+        setIsPublishing(true);
+        setPublishError(null);
+        setTxHash(null);
+
+        try {
+            if (!window.ethereum) {
+                throw new Error("No crypto wallet found. Please install MetaMask.");
+            }
+
+            const client = createWalletClient({
+                transport: custom(window.ethereum as any)
+            });
+
+            const [account] = await client.requestAddresses();
+
+            // Parse signature
+            const signature = result.attestation.signature.startsWith('0x')
+                ? result.attestation.signature
+                : `0x${result.attestation.signature}`;
+
+            // simple parsing of r,s,v from 65-byte signature
+            const r = `0x${signature.slice(2, 66)}` as `0x${string}`;
+            const s = `0x${signature.slice(66, 130)}` as `0x${string}`;
+            let v = parseInt(signature.slice(130, 132), 16);
+
+            // Adjust v for Ethereum (27/28) if it's 0/1
+            if (v < 27) v += 27;
+
+            const registryAddress = process.env.NEXT_PUBLIC_ATTESTATION_REGISTRY_ADDRESS as `0x${string}`;
+            if (!registryAddress) throw new Error("Registry address not configured");
+
+            // Extract contract hash from payload - safe cast since we know structure
+            const payload = result.attestation.payload as any || {};
+            const contractHash = payload.contract_bytecode_hash as `0x${string}`
+                || '0x0000000000000000000000000000000000000000000000000000000000000000';
+
+            const resultHash = (result.attestation.result_hash.startsWith('0x')
+                ? result.attestation.result_hash
+                : `0x${result.attestation.result_hash}`) as `0x${string}`;
+
+            const passed = payload.passed === true;
+
+            const hash = await client.writeContract({
+                address: registryAddress,
+                abi: ATTESTATION_REGISTRY_ABI,
+                functionName: 'commitAttestation',
+                args: [resultHash, passed, contractHash, v, r, s],
+                account
+            });
+
+            setTxHash(hash);
+
+        } catch (err: any) {
+            console.error(err);
+            setPublishError(err.message || "Failed to publish attestation");
+        } finally {
+            setIsPublishing(false);
+        }
+    };
 
     const handleVerify = async () => {
         setIsLoading(true);
@@ -214,6 +298,26 @@ export default function DemoInterface() {
                                             <span className="text-zinc-600">Signature:</span><br />
                                             {result.attestation.signature}
                                         </div>
+                                    </div>
+
+                                    <div className="pt-4 border-t border-zinc-800">
+                                        <button
+                                            onClick={handlePublish}
+                                            disabled={isPublishing || !!txHash}
+                                            className="w-full py-2 bg-white text-black hover:bg-zinc-200 disabled:opacity-50 disabled:cursor-not-allowed text-xs font-bold uppercase tracking-wider rounded transition-colors"
+                                        >
+                                            {isPublishing ? 'Publishing to Registry...' : txHash ? 'Attestation Published' : 'Publish Attestation On-Chain'}
+                                        </button>
+
+                                        {publishError && (
+                                            <div className="mt-2 text-red-500 text-xs text-center">{publishError}</div>
+                                        )}
+
+                                        {txHash && (
+                                            <div className="mt-2 text-green-500 text-xs text-center break-all">
+                                                TX: {txHash}
+                                            </div>
+                                        )}
                                     </div>
 
                                     {result.attestation.payload?.details && (

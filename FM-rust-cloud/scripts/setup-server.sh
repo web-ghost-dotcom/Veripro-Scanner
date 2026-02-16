@@ -30,6 +30,19 @@ else
     echo "✅ Foundry is already installed"
 fi
 
+# 3.5 Install forge-std globally (for coordinator to use)
+echo "📚 Installing forge-std library..."
+FORGE_STD_PATH="$HOME/.foundry/forge-std"
+if [ ! -d "$FORGE_STD_PATH" ]; then
+    mkdir -p "$HOME/.foundry"
+    git clone https://github.com/foundry-rs/forge-std "$FORGE_STD_PATH"
+    echo "✅ forge-std installed to $FORGE_STD_PATH"
+else
+    echo "✅ forge-std already exists at $FORGE_STD_PATH"
+    # Optional: Update it
+    # cd "$FORGE_STD_PATH" && git pull
+fi
+
 # 4. Build Project
 echo "🔨 Building project (this may take a while)..."
 # Navigate to project root (assuming script is in scripts/)

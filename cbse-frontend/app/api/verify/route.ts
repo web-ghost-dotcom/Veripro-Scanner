@@ -19,8 +19,10 @@ export async function POST(req: NextRequest) {
     try {
         // Forward the request to the coordinator
         const body = await req.json();
+        const targetUrl = `${COORDINATOR_URL}/verify`;
+        console.log(`[Proxy] Forwarding request to: ${targetUrl}`);
 
-        const response = await fetch(`${COORDINATOR_URL}/verify`, {
+        const response = await fetch(targetUrl, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -28,7 +30,10 @@ export async function POST(req: NextRequest) {
             body: JSON.stringify(body),
         });
 
+        console.log(`[Proxy] Response status: ${response.status}`);
         const data: unknown = await response.json();
+        // console.log(`[Proxy] Response data:`, JSON.stringify(data).slice(0, 200)); 
+
         return NextResponse.json(data, { status: response.status });
     } catch (error) {
         console.error('Verification error:', error);
