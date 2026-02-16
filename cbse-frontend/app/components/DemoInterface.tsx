@@ -120,6 +120,8 @@ export default function DemoInterface() {
 
             const passed = payload.passed === true;
 
+            // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+            // @ts-ignore
             const hash = await client.writeContract({
                 address: registryAddress,
                 abi: ATTESTATION_REGISTRY_ABI,
