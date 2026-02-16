@@ -1,0 +1,24 @@
+[package]
+name = "cbse-sevm"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+
+[dependencies]
+cbse-bitvec.workspace = true
+cbse-bytevec.workspace = true
+cbse-contract.workspace = true
+cbse-solver.workspace = true
+cbse-cheatcodes.workspace = true
+cbse-console.workspace = true
+cbse-calldata.workspace = true
+cbse-exceptions.workspace = true
+cbse-constants.workspace = true
+cbse-hashes.workspace = true
+cbse-logs.workspace = true
+cbse-traces.workspace = true
+z3.workspace = true
+indexmap.workspace = true
+num-bigint.workspace = true
+num-traits.workspace = true

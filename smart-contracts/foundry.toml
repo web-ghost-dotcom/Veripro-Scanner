@@ -1,0 +1,25 @@
+[profile.default]
+src = "src"
+out = "out"
+libs = ["lib"]
+
+# Solidity compiler version
+solc_version = "0.8.20"
+
+# Optimizer settings
+optimizer = true
+optimizer_runs = 200
+
+# RPC endpoints
+[rpc_endpoints]
+sepolia = "https://eth-sepolia.public.blastapi.io"
+mainnet = "https://eth.merkle.io"
+localhost = "http://127.0.0.1:8545"
+bsctestnet = "https://data-seed-prebsc-1-s1.binance.org:8545"
+bsc = "https://bsc-dataseed.binance.org"
+
+[etherscan]
+bsctestnet = { key = "${BSCSCAN_API_KEY}", url = "https://api-testnet.bscscan.com/api" }
+bsc = { key = "${BSCSCAN_API_KEY}", url = "https://api.bscscan.com/api" }
+
+# See more config options https://github.com/foundry-rs/foundry/blob/master/crates/config/README.md#all-options

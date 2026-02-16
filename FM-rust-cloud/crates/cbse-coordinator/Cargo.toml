@@ -1,0 +1,22 @@
+[package]
+name = "cbse-coordinator"
+version.workspace = true
+edition.workspace = true
+license.workspace = true
+authors.workspace = true
+repository.workspace = true
+
+[dependencies]
+axum = "0.7"
+tokio = { workspace = true }
+serde = { workspace = true }
+serde_json = { workspace = true }
+tower-http = { version = "0.5", features = ["cors"] }
+tracing = { workspace = true }
+tracing-subscriber = { workspace = true }
+ethers = { workspace = true }
+hex = { workspace = true }
+cbse-protocol = { path = "../cbse-protocol" }
+uuid = { version = "1.0", features = ["v4", "serde"] }
+tempfile = "3.10"
+regex = "1"

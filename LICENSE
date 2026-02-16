@@ -1,0 +1,49 @@
+# VeriPro Dual License
+
+VeriPro is available under a dual license model designed to meet the needs of both open-source developers and commercial enterprises.
+
+## License Options
+
+### Option 1: MIT License (Open Source)
+
+For open-source projects, personal use, educational purposes, and hobbyists, VeriPro is available under the MIT License. See [LICENSE-MIT](./LICENSE-MIT) for the full terms.
+
+**Requirements:**
+- Include the original copyright notice and license in all copies
+- Attribution to VeriPro in your documentation or README
+
+### Option 2: Commercial License
+
+For commercial use where you prefer not to comply with the open-source attribution requirements, or for enterprise deployments requiring additional support and features, a commercial license is available.
+
+**Commercial License includes:**
+- No attribution requirements
+- Priority support
+- Custom integrations
+- SLA guarantees
+- Indemnification
+
+**Contact:** [Insert contact email for commercial licensing]
+
+---
+
+## Which License Should I Use?
+
+| Use Case | License |
+|----------|---------|
+| Personal projects | MIT |
+| Open-source projects | MIT |
+| Educational/Academic | MIT |
+| Internal company tools (with attribution) | MIT |
+| Commercial SaaS products | Commercial |
+| Enterprise deployment without attribution | Commercial |
+| White-label solutions | Commercial |
+
+---
+
+## Summary
+
+- **Hobbyists & Open Source**: Use freely under MIT with attribution
+- **Commercial without attribution**: Contact us for commercial licensing
+
+By using VeriPro, you agree to comply with the terms of your chosen license.

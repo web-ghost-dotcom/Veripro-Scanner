@@ -1,0 +1,714 @@
+<!DOCTYPE html><html><head>
+      <title>ARCHITECTURE_GUIDE</title>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      
+      <link rel="stylesheet" href="file:////Users/mac/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/katex/katex.min.css">
+      
+      
+      <script type="text/javascript" src="file:////Users/mac/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.20/crossnote/dependencies/mermaid/mermaid.min.js" charset="UTF-8"></script>
+      
+      
+      <style>
+      code[class*=language-],pre[class*=language-]{color:#333;background:0 0;font-family:Consolas,"Liberation Mono",Menlo,Courier,monospace;text-align:left;white-space:pre;word-spacing:normal;word-break:normal;word-wrap:normal;line-height:1.4;-moz-tab-size:8;-o-tab-size:8;tab-size:8;-webkit-hyphens:none;-moz-hyphens:none;-ms-hyphens:none;hyphens:none}pre[class*=language-]{padding:.8em;overflow:auto;border-radius:3px;background:#f5f5f5}:not(pre)>code[class*=language-]{padding:.1em;border-radius:.3em;white-space:normal;background:#f5f5f5}.token.blockquote,.token.comment{color:#969896}.token.cdata{color:#183691}.token.doctype,.token.macro.property,.token.punctuation,.token.variable{color:#333}.token.builtin,.token.important,.token.keyword,.token.operator,.token.rule{color:#a71d5d}.token.attr-value,.token.regex,.token.string,.token.url{color:#183691}.token.atrule,.token.boolean,.token.code,.token.command,.token.constant,.token.entity,.token.number,.token.property,.token.symbol{color:#0086b3}.token.prolog,.token.selector,.token.tag{color:#63a35c}.token.attr-name,.token.class,.token.class-name,.token.function,.token.id,.token.namespace,.token.pseudo-class,.token.pseudo-element,.token.url-reference .token.variable{color:#795da3}.token.entity{cursor:help}.token.title,.token.title .token.punctuation{font-weight:700;color:#1d3e81}.token.list{color:#ed6a43}.token.inserted{background-color:#eaffea;color:#55a532}.token.deleted{background-color:#ffecec;color:#bd2c00}.token.bold{font-weight:700}.token.italic{font-style:italic}.language-json .token.property{color:#183691}.language-markup .token.tag .token.punctuation{color:#333}.language-css .token.function,code.language-css{color:#0086b3}.language-yaml .token.atrule{color:#63a35c}code.language-yaml{color:#183691}.language-ruby .token.function{color:#333}.language-markdown .token.url{color:#795da3}.language-makefile .token.symbol{color:#795da3}.language-makefile .token.variable{color:#183691}.language-makefile .token.builtin{color:#0086b3}.language-bash .token.keyword{color:#0086b3}pre[data-line]{position:relative;padding:1em 0 1em 3em}pre[data-line] .line-highlight-wrapper{position:absolute;top:0;left:0;background-color:transparent;display:block;width:100%}pre[data-line] .line-highlight{position:absolute;left:0;right:0;padding:inherit 0;margin-top:1em;background:hsla(24,20%,50%,.08);background:linear-gradient(to right,hsla(24,20%,50%,.1) 70%,hsla(24,20%,50%,0));pointer-events:none;line-height:inherit;white-space:pre}pre[data-line] .line-highlight:before,pre[data-line] .line-highlight[data-end]:after{content:attr(data-start);position:absolute;top:.4em;left:.6em;min-width:1em;padding:0 .5em;background-color:hsla(24,20%,50%,.4);color:#f4f1ef;font:bold 65%/1.5 sans-serif;text-align:center;vertical-align:.3em;border-radius:999px;text-shadow:none;box-shadow:0 1px #fff}pre[data-line] .line-highlight[data-end]:after{content:attr(data-end);top:auto;bottom:.4em}html body{font-family:'Helvetica Neue',Helvetica,'Segoe UI',Arial,freesans,sans-serif;font-size:16px;line-height:1.6;color:#333;background-color:#fff;overflow:initial;box-sizing:border-box;word-wrap:break-word}html body>:first-child{margin-top:0}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{line-height:1.2;margin-top:1em;margin-bottom:16px;color:#000}html body h1{font-size:2.25em;font-weight:300;padding-bottom:.3em}html body h2{font-size:1.75em;font-weight:400;padding-bottom:.3em}html body h3{font-size:1.5em;font-weight:500}html body h4{font-size:1.25em;font-weight:600}html body h5{font-size:1.1em;font-weight:600}html body h6{font-size:1em;font-weight:600}html body h1,html body h2,html body h3,html body h4,html body h5{font-weight:600}html body h5{font-size:1em}html body h6{color:#5c5c5c}html body strong{color:#000}html body del{color:#5c5c5c}html body a:not([href]){color:inherit;text-decoration:none}html body a{color:#08c;text-decoration:none}html body a:hover{color:#00a3f5;text-decoration:none}html body img{max-width:100%}html body>p{margin-top:0;margin-bottom:16px;word-wrap:break-word}html body>ol,html body>ul{margin-bottom:16px}html body ol,html body ul{padding-left:2em}html body ol.no-list,html body ul.no-list{padding:0;list-style-type:none}html body ol ol,html body ol ul,html body ul ol,html body ul ul{margin-top:0;margin-bottom:0}html body li{margin-bottom:0}html body li.task-list-item{list-style:none}html body li>p{margin-top:0;margin-bottom:0}html body .task-list-item-checkbox{margin:0 .2em .25em -1.8em;vertical-align:middle}html body .task-list-item-checkbox:hover{cursor:pointer}html body blockquote{margin:16px 0;font-size:inherit;padding:0 15px;color:#5c5c5c;background-color:#f0f0f0;border-left:4px solid #d6d6d6}html body blockquote>:first-child{margin-top:0}html body blockquote>:last-child{margin-bottom:0}html body hr{height:4px;margin:32px 0;background-color:#d6d6d6;border:0 none}html body table{margin:10px 0 15px 0;border-collapse:collapse;border-spacing:0;display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}html body table th{font-weight:700;color:#000}html body table td,html body table th{border:1px solid #d6d6d6;padding:6px 13px}html body dl{padding:0}html body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}html body dl dd{padding:0 16px;margin-bottom:16px}html body code{font-family:Menlo,Monaco,Consolas,'Courier New',monospace;font-size:.85em;color:#000;background-color:#f0f0f0;border-radius:3px;padding:.2em 0}html body code::after,html body code::before{letter-spacing:-.2em;content:'\00a0'}html body pre>code{padding:0;margin:0;word-break:normal;white-space:pre;background:0 0;border:0}html body .highlight{margin-bottom:16px}html body .highlight pre,html body pre{padding:1em;overflow:auto;line-height:1.45;border:#d6d6d6;border-radius:3px}html body .highlight pre{margin-bottom:0;word-break:normal}html body pre code,html body pre tt{display:inline;max-width:initial;padding:0;margin:0;overflow:initial;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}html body pre code:after,html body pre code:before,html body pre tt:after,html body pre tt:before{content:normal}html body blockquote,html body dl,html body ol,html body p,html body pre,html body ul{margin-top:0;margin-bottom:16px}html body kbd{color:#000;border:1px solid #d6d6d6;border-bottom:2px solid #c7c7c7;padding:2px 4px;background-color:#f0f0f0;border-radius:3px}@media print{html body{background-color:#fff}html body h1,html body h2,html body h3,html body h4,html body h5,html body h6{color:#000;page-break-after:avoid}html body blockquote{color:#5c5c5c}html body pre{page-break-inside:avoid}html body table{display:table}html body img{display:block;max-width:100%;max-height:100%}html body code,html body pre{word-wrap:break-word;white-space:pre}}.markdown-preview{width:100%;height:100%;box-sizing:border-box}.markdown-preview ul{list-style:disc}.markdown-preview ul ul{list-style:circle}.markdown-preview ul ul ul{list-style:square}.markdown-preview ol{list-style:decimal}.markdown-preview ol ol,.markdown-preview ul ol{list-style-type:lower-roman}.markdown-preview ol ol ol,.markdown-preview ol ul ol,.markdown-preview ul ol ol,.markdown-preview ul ul ol{list-style-type:lower-alpha}.markdown-preview .newpage,.markdown-preview .pagebreak{page-break-before:always}.markdown-preview pre.line-numbers{position:relative;padding-left:3.8em;counter-reset:linenumber}.markdown-preview pre.line-numbers>code{position:relative}.markdown-preview pre.line-numbers .line-numbers-rows{position:absolute;pointer-events:none;top:1em;font-size:100%;left:0;width:3em;letter-spacing:-1px;border-right:1px solid #999;-webkit-user-select:none;-moz-user-select:none;-ms-user-select:none;user-select:none}.markdown-preview pre.line-numbers .line-numbers-rows>span{pointer-events:none;display:block;counter-increment:linenumber}.markdown-preview pre.line-numbers .line-numbers-rows>span:before{content:counter(linenumber);color:#999;display:block;padding-right:.8em;text-align:right}.markdown-preview .mathjax-exps .MathJax_Display{text-align:center!important}.markdown-preview:not([data-for=preview]) .code-chunk .code-chunk-btn-group{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .status{display:none}.markdown-preview:not([data-for=preview]) .code-chunk .output-div{margin-bottom:16px}.markdown-preview .md-toc{padding:0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link div,.markdown-preview .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}.markdown-preview .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}.scrollbar-style::-webkit-scrollbar{width:8px}.scrollbar-style::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}.scrollbar-style::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode]){position:relative;width:100%;height:100%;top:0;left:0;margin:0;padding:0;overflow:auto}html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{position:relative;top:0;min-height:100vh}@media screen and (min-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em calc(50% - 457px + 2em)}}@media screen and (max-width:914px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode]) .markdown-preview{font-size:14px!important;padding:1em}}@media print{html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{display:none}}html body[for=html-export]:not([data-presentation-mode]) #sidebar-toc-btn{position:fixed;bottom:8px;left:8px;font-size:28px;cursor:pointer;color:inherit;z-index:99;width:32px;text-align:center;opacity:.4}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] #sidebar-toc-btn{opacity:1}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc{position:fixed;top:0;left:0;width:300px;height:100%;padding:32px 0 48px 0;font-size:14px;box-shadow:0 0 4px rgba(150,150,150,.33);box-sizing:border-box;overflow:auto;background-color:inherit}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar{width:8px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-track{border-radius:10px;background-color:transparent}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc::-webkit-scrollbar-thumb{border-radius:5px;background-color:rgba(150,150,150,.66);border:4px solid rgba(150,150,150,.66);background-clip:content-box}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc a{text-decoration:none}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc{padding:0 16px}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link{display:inline;padding:.25rem 0}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link div,html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper .md-toc-link p{display:inline}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .md-sidebar-toc .md-toc .md-toc-link-wrapper.highlighted .md-toc-link{font-weight:800}html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{left:300px;width:calc(100% - 300px);padding:2em calc(50% - 457px - 300px / 2);margin:0;box-sizing:border-box}@media screen and (max-width:1274px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{padding:2em}}@media screen and (max-width:450px){html body[for=html-export]:not([data-presentation-mode])[html-show-sidebar-toc] .markdown-preview{width:100%}}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .markdown-preview{left:50%;transform:translateX(-50%)}html body[for=html-export]:not([data-presentation-mode]):not([html-show-sidebar-toc]) .md-sidebar-toc{display:none}
+/* Please visit the URL below for more information: */
+/*   https://shd101wyy.github.io/markdown-preview-enhanced/#/customize-css */
+
+      </style>
+      <!-- The content below will be included at the end of the <head> element. --><script type="text/javascript">
+  document.addEventListener("DOMContentLoaded", function () {
+    // your code here
+  });
+</script></head><body for="html-export">
+    
+    
+      <div class="crossnote markdown-preview  ">
+      
+<h1 id="cbse-architecture-guide-complete-blockchain-symbolic-execution">CBSE Architecture Guide: Complete Blockchain Symbolic Execution </h1>
+<h2 id="overview">Overview </h2>
+<p>CBSE (Complete Blockchain Symbolic Executor) is a Rust-based symbolic execution engine for Ethereum smart contracts. It analyzes Solidity code by exploring all possible execution paths to find vulnerabilities, assertion failures, and edge cases that traditional testing might miss.</p>
+<hr>
+<h2 id="key-capabilities">Key Capabilities </h2>
+<ul>
+<li><strong>Symbolic Execution</strong>: Explores all code paths using symbolic values instead of concrete inputs</li>
+<li><strong>Automatic Bug Detection</strong>: Finds overflows, underflows, assertion failures, and reverts</li>
+<li><strong>Path Exploration</strong>: Discovers counterexamples that violate invariants</li>
+<li><strong>Dual Execution Modes</strong>: Run locally or offload to remote cloud servers via SSH</li>
+</ul>
+<hr>
+<h2 id="core-philosophy">Core Philosophy </h2>
+<p><strong>Traditional Testing:</strong></p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>test(5) ✓  test(10) ✓  test(100) ✓  ... (limited coverage)
+</code></pre><p><strong>Symbolic Execution:</strong></p>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>test(X) where X ∈ [0, 2^256-1]  (complete coverage)
+</code></pre><hr>
+<h2 id="execution-modes">Execution Modes </h2>
+<h3 id="1-local-mode-default">1. Local Mode (Default) </h3>
+<p>Execute everything on your local machine:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>cbse <span class="token parameter variable">--function</span> <span class="token string">"test"</span>
+</code></pre><p><strong>Use Cases:</strong></p>
+<ul>
+<li>Development and debugging</li>
+<li>Small to medium contracts</li>
+<li>Quick iteration cycles</li>
+<li>No network latency concerns</li>
+</ul>
+<h3 id="2-ssh-cloud-mode">2. SSH Cloud Mode </h3>
+<p>Compile locally, execute remotely:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code>cbse <span class="token parameter variable">--ssh</span> --ssh-host node10@node10 <span class="token parameter variable">--function</span> <span class="token string">"test"</span>
+</code></pre><p><strong>Use Cases:</strong></p>
+<ul>
+<li>Large contract suites requiring heavy computation</li>
+<li>Offloading Z3 solver work to powerful servers</li>
+<li>Parallel execution across multiple nodes (future)</li>
+<li>Resource-constrained local machines</li>
+</ul>
+<hr>
+<h2 id="system-architecture-overview">System Architecture Overview </h2>
+<div class="mermaid">graph TD
+    A[Solidity Code&lt;br/&gt;.sol files]
+    A --&gt; B[PHASE 1: COMPILATION&lt;br/&gt;Always happens locally]
+    B --&gt; C[cbse-build&lt;br/&gt;Forge Integration]
+    C --&gt; D[Build Artifact&lt;br/&gt;• Bytecode&lt;br/&gt;• ABI&lt;br/&gt;• Storage&lt;br/&gt;• Metadata]
+    
+    D --&gt; E{Execution Mode?}
+    
+    E --&gt;|Local| L1[LOCAL EXECUTION]
+    E --&gt;|SSH| S1[SSH CLOUD MODE]
+    
+    S1 --&gt; S2[cbse-remote&lt;br/&gt;SSH Upload]
+    S2 --&gt; S3[Remote Server&lt;br/&gt;Worker Mode]
+    
+    L1 --&gt; P2[PHASE 2:&lt;br/&gt;SYMBOLIC EXECUTION]
+    S3 --&gt; P2
+    
+    P2 --&gt; J[cbse-sevm&lt;br/&gt;Symbolic EVM]
+    J --&gt; K[Path Exploration&lt;br/&gt;• Fork on branch&lt;br/&gt;• Track paths&lt;br/&gt;• Collect traces]
+    K --&gt; L[cbse-solver Z3&lt;br/&gt;Constraint Solving]
+    L --&gt; M[Test Results&lt;br/&gt;• Pass/Fail&lt;br/&gt;• Traces&lt;br/&gt;• Counterexample]
+    
+    M --&gt; N1{Mode?}
+    N1 --&gt;|Local| N2[Display Locally&lt;br/&gt;cbse-ui]
+    N1 --&gt;|SSH| N3[Download Results&lt;br/&gt;cbse-remote]
+    N3 --&gt; N2
+    
+    style A fill:#e1f5ff
+    style D fill:#fff4e1
+    style P2 fill:#ffe1f5
+    style M fill:#e1ffe1
+    style N2 fill:#f0f0f0
+</div><hr>
+<h2 id="execution-flow">Execution Flow </h2>
+<h3 id="phase-1-compilation-always-local">Phase 1: Compilation (Always Local) </h3>
+<div class="mermaid">graph TD
+    U[User runs: cbse --function test]
+    U --&gt; C1[cbse-config&lt;br/&gt;Parse CLI arguments]
+    C1 --&gt; B1[cbse-build executes&lt;br/&gt;forge build --ast&lt;br/&gt;--extra-output storageLayout]
+    B1 --&gt; F1[Forge compiles&lt;br/&gt;Solidity contracts]
+    F1 --&gt; F2[test/Counter.t.sol →&lt;br/&gt;out/Counter.t.sol/CounterTest.json]
+    F2 --&gt; F3[src/Counter.sol →&lt;br/&gt;out/Counter.sol/Counter.json]
+    F3 --&gt; P1[cbse-build parses&lt;br/&gt;JSON artifacts]
+    P1 --&gt; A1[BuildArtifacts struct&lt;br/&gt;• abi: Array&lt;br/&gt;• bytecode: Hex&lt;br/&gt;• deployedBytecode: Hex&lt;br/&gt;• storageLayout: Object&lt;br/&gt;• metadata: Object]
+    
+    style U fill:#e1f5ff
+    style A1 fill:#e1ffe1
+</div><hr>
+<h3 id="phase-2a-local-execution-flow">Phase 2A: Local Execution Flow </h3>
+<div class="mermaid">graph TD
+    START[Start Local Execution]
+    START --&gt; INIT[Initialize SEVM&lt;br/&gt;• Create Z3 context&lt;br/&gt;• Create initial State&lt;br/&gt;• Load bytecode]
+    
+    INIT --&gt; DEPLOY1[Deploy Test Contract&lt;br/&gt;• Create symbolic address&lt;br/&gt;• Store bytecode&lt;br/&gt;• Setup environment]
+    
+    DEPLOY1 --&gt; DEPLOY2[Deploy Target Contracts&lt;br/&gt;• Deploy Counter.sol&lt;br/&gt;• Run constructor&lt;br/&gt;• Store bytecode]
+    
+    DEPLOY2 --&gt; BUILD[Build Function Call&lt;br/&gt;• Calculate selector&lt;br/&gt;• Encode symbolic args&lt;br/&gt;• Create calldata]
+    
+    BUILD --&gt; EXEC[Execute Test Function&lt;br/&gt;Start SEVM Loop]
+    
+    EXEC --&gt; OP1[OPCODE: PUSH1 0x80&lt;br/&gt;Create symbolic value&lt;br/&gt;Push to stack]
+    
+    OP1 --&gt; OP2[OPCODE: MSTORE&lt;br/&gt;Update memory offset]
+    
+    OP2 --&gt; OP3[OPCODE: CALLDATALOAD&lt;br/&gt;Load symbolic x from calldata]
+    
+    OP3 --&gt; OP4[OPCODE: SSTORE&lt;br/&gt;Storage contract 0 = symbolic x]
+    
+    OP4 --&gt; BRANCH{OPCODE: JUMPI&lt;br/&gt;Conditional Branch?}
+    
+    BRANCH --&gt;|True| PATH1[Path 1:&lt;br/&gt;branch_condition == true&lt;br/&gt;Add constraint]
+    BRANCH --&gt;|False| PATH2[Path 2:&lt;br/&gt;branch_condition == false&lt;br/&gt;Add constraint]
+    
+    PATH1 --&gt; SAT1{Z3 SAT Check&lt;br/&gt;Path 1}
+    PATH2 --&gt; SAT2{Z3 SAT Check&lt;br/&gt;Path 2}
+    
+    SAT1 --&gt;|SAT| CONT1[Continue&lt;br/&gt;Execution Path 1]
+    SAT1 --&gt;|UNSAT| PRUNE1[Prune Path 1&lt;br/&gt;Infeasible]
+    
+    SAT2 --&gt;|SAT| CONT2[Continue&lt;br/&gt;Execution Path 2]
+    SAT2 --&gt;|UNSAT| PRUNE2[Prune Path 2&lt;br/&gt;Infeasible]
+    
+    CONT1 --&gt; CHECK1{Assertion/Revert?}
+    CONT2 --&gt; CHECK2{Assertion/Revert?}
+    
+    CHECK1 --&gt;|Yes| FAIL1[REVERT Detected&lt;br/&gt;Record trace&lt;br/&gt;Extract counterexample]
+    CHECK1 --&gt;|No| PASS1[Continue to completion]
+    
+    CHECK2 --&gt;|Yes| FAIL2[REVERT Detected&lt;br/&gt;Record trace&lt;br/&gt;Extract counterexample]
+    CHECK2 --&gt;|No| PASS2[Continue to completion]
+    
+    FAIL1 --&gt; RESULT[Aggregate Test Results]
+    FAIL2 --&gt; RESULT
+    PASS1 --&gt; RESULT
+    PASS2 --&gt; RESULT
+    PRUNE1 --&gt; RESULT
+    PRUNE2 --&gt; RESULT
+    
+    RESULT --&gt; UI[Display in Terminal&lt;br/&gt;cbse-ui&lt;br/&gt;• Passed tests&lt;br/&gt;• Failed tests&lt;br/&gt;• Counterexamples]
+    
+    style START fill:#e1f5ff
+    style BRANCH fill:#ffe1e1
+    style SAT1 fill:#fff4e1
+    style SAT2 fill:#fff4e1
+    style FAIL1 fill:#ffcccc
+    style FAIL2 fill:#ffcccc
+    style UI fill:#e1ffe1
+</div><hr>
+<h3 id="phase-2b-ssh-cloud-execution-flow">Phase 2B: SSH Cloud Execution Flow </h3>
+<div class="mermaid">graph TD
+    START[User runs: cbse --ssh&lt;br/&gt;--ssh-host user@server&lt;br/&gt;--function test]
+    
+    START --&gt; LOCAL1[LOCAL: Compilation&lt;br/&gt;Steps 1-3 same as local mode]
+    
+    LOCAL1 --&gt; LOCAL2[LOCAL: cbse-remote&lt;br/&gt;Create JobArtifact]
+    
+    LOCAL2 --&gt; JOB[JobArtifact Structure:&lt;br/&gt;• contracts array&lt;br/&gt;• config object&lt;br/&gt;• job_id uuid&lt;br/&gt;• timestamp]
+    
+    JOB --&gt; SERIAL[Serialize to&lt;br/&gt;artifact.json]
+    
+    SERIAL --&gt; CONN[LOCAL: Establish&lt;br/&gt;SSH Connection&lt;br/&gt;• Prompt for password&lt;br/&gt;• TCP connection&lt;br/&gt;• Authentication]
+    
+    CONN --&gt; UPLOAD[LOCAL: SFTP Upload&lt;br/&gt;artifact.json →&lt;br/&gt;/tmp/cbse-jobs/uuid/]
+    
+    UPLOAD --&gt; EXEC[LOCAL: Execute&lt;br/&gt;Remote Command&lt;br/&gt;/usr/local/bin/cbse&lt;br/&gt;--worker-mode&lt;br/&gt;--input artifact.json&lt;br/&gt;--output result.json]
+    
+    EXEC --&gt; REMOTE1[REMOTE: Worker Mode Starts]
+    
+    REMOTE1 --&gt; REMOTE2[REMOTE: Deserialize&lt;br/&gt;artifact.json]
+    
+    REMOTE2 --&gt; REMOTE3[REMOTE: Initialize&lt;br/&gt;Z3 Context]
+    
+    REMOTE3 --&gt; REMOTE4[REMOTE: Execute Tests&lt;br/&gt;Same as Local Phase 2A&lt;br/&gt;Steps 2-4]
+    
+    REMOTE4 --&gt; REMOTE5[REMOTE: Symbolic&lt;br/&gt;Execution Loop&lt;br/&gt;• Deploy contracts&lt;br/&gt;• Execute functions&lt;br/&gt;• Fork paths&lt;br/&gt;• Check constraints&lt;br/&gt;• Collect results]
+    
+    REMOTE5 --&gt; REMOTE6[REMOTE: Serialize Results&lt;br/&gt;to result.json]
+    
+    REMOTE6 --&gt; RESULT[Result JSON:&lt;br/&gt;• tests array&lt;br/&gt;• passed boolean&lt;br/&gt;• traces&lt;br/&gt;• counterexamples&lt;br/&gt;• summary]
+    
+    RESULT --&gt; EXIT[REMOTE: Exit Worker&lt;br/&gt;Code 0 pass or 1 fail]
+    
+    EXIT --&gt; DOWNLOAD[LOCAL: SFTP Download&lt;br/&gt;result.json from&lt;br/&gt;/tmp/cbse-jobs/uuid/]
+    
+    DOWNLOAD --&gt; CLEANUP[LOCAL: Remote Cleanup&lt;br/&gt;rm -rf /tmp/cbse-jobs/uuid/]
+    
+    CLEANUP --&gt; PARSE[LOCAL: Parse&lt;br/&gt;result.json]
+    
+    PARSE --&gt; DISPLAY[LOCAL: Display Results&lt;br/&gt;cbse-ui&lt;br/&gt;Same as local mode]
+    
+    style START fill:#e1f5ff
+    style LOCAL1 fill:#e1f5ff
+    style LOCAL2 fill:#e1f5ff
+    style CONN fill:#fff4e1
+    style UPLOAD fill:#ffe1f5
+    style REMOTE1 fill:#ffe1e1
+    style REMOTE2 fill:#ffe1e1
+    style REMOTE3 fill:#ffe1e1
+    style REMOTE4 fill:#ffe1e1
+    style REMOTE5 fill:#ffe1e1
+    style REMOTE6 fill:#ffe1e1
+    style DOWNLOAD fill:#ffe1f5
+    style DISPLAY fill:#e1ffe1
+</div><hr>
+<h2 id="data-flow-diagrams">Data Flow Diagrams </h2>
+<h3 id="local-mode-data-flow-vertical">Local Mode Data Flow (Vertical) </h3>
+<div class="mermaid">graph TD
+    A[Solidity Source Files&lt;br/&gt;.sol]
+    
+    A --&gt;|cbse-build| B[BuildArtifacts]
+    
+    B1[BuildArtifacts Contents:&lt;br/&gt;• bytecode: Vec u8&lt;br/&gt;• abi: Vec AbiItem&lt;br/&gt;• storage: StorageLayout]
+    B --&gt; B1
+    
+    B1 --&gt;|main.rs| C[Iterate Each Test Function]
+    
+    C --&gt;|cbse-sevm| D[SEVM Initialization]
+    
+    D1[SEVM Components:&lt;br/&gt;• Context Z3&lt;br/&gt;• State stack, memory, storage&lt;br/&gt;• Contract bytecode]
+    D --&gt; D1
+    
+    D1 --&gt;|cbse-calldata| E[Build Function Call]
+    
+    E1[Function Call:&lt;br/&gt;• selector: u8; 4&lt;br/&gt;• args: Vec CbseBitVec]
+    E --&gt; E1
+    
+    E1 --&gt;|cbse-sevm opcodes| F[Execution Loop]
+    
+    F --&gt; G{Conditional Branch?}
+    
+    G --&gt;|Yes| H[Path 1&lt;br/&gt;Constraints:&lt;br/&gt;Vec Z3Bool]
+    G --&gt;|Yes| I[Path 2&lt;br/&gt;Constraints:&lt;br/&gt;Vec Z3Bool]
+    G --&gt;|No| J[Continue Single Path]
+    
+    H --&gt;|cbse-solver| K{SAT Check Path 1}
+    I --&gt;|cbse-solver| L{SAT Check Path 2}
+    J --&gt;|cbse-solver| M{SAT Check}
+    
+    K --&gt;|SAT| N[Continue Path 1]
+    K --&gt;|UNSAT| O[Prune Path 1]
+    
+    L --&gt;|SAT| P[Continue Path 2]
+    L --&gt;|UNSAT| Q[Prune Path 2]
+    
+    M --&gt;|SAT| R[Continue]
+    M --&gt;|UNSAT| S[Prune]
+    
+    N --&gt;|cbse-traces| T[Trace Recording]
+    P --&gt;|cbse-traces| T
+    R --&gt;|cbse-traces| T
+    
+    T1[Trace Events:&lt;br/&gt;• CALL&lt;br/&gt;• SLOAD&lt;br/&gt;• SSTORE&lt;br/&gt;• REVERT]
+    T --&gt; T1
+    
+    T1 --&gt;|main.rs| U[TestResult]
+    
+    U1[TestResult:&lt;br/&gt;• passed: bool&lt;br/&gt;• trace: String&lt;br/&gt;• counterexample: Option Model]
+    U --&gt; U1
+    
+    U1 --&gt;|cbse-ui| V[Terminal Output&lt;br/&gt;Formatted Display]
+    
+    style A fill:#e1f5ff
+    style B1 fill:#fff4e1
+    style D1 fill:#ffe1f5
+    style E1 fill:#e1ffe1
+    style G fill:#ffcccc
+    style K fill:#fff4e1
+    style L fill:#fff4e1
+    style M fill:#fff4e1
+    style T1 fill:#e1f5ff
+    style U1 fill:#ffe1e1
+    style V fill:#e1ffe1
+</div><hr>
+<h3 id="ssh-cloud-mode-data-flow-vertical">SSH Cloud Mode Data Flow (Vertical) </h3>
+<div class="mermaid">graph TD
+    subgraph LOCAL[" "]
+        A[Solidity Source&lt;br/&gt;Local Machine]
+        A --&gt; B[cbse-build&lt;br/&gt;Compilation]
+        B --&gt; C[BuildArtifacts&lt;br/&gt;Local]
+        C --&gt; D[cbse-remote&lt;br/&gt;Job Creation]
+        D --&gt; E[JobArtifact Object&lt;br/&gt;• contracts&lt;br/&gt;• config&lt;br/&gt;• metadata]
+        E --&gt; F[Serialize to&lt;br/&gt;artifact.json]
+        F --&gt; G[SFTP Upload&lt;br/&gt;SSH Connection]
+    end
+    
+    G -.Transfer.-&gt; H
+    
+    subgraph REMOTE[" "]
+        H[artifact.json&lt;br/&gt;Remote Server]
+        H --&gt; I[cbse --worker-mode&lt;br/&gt;Deserialize]
+        I --&gt; J[Initialize&lt;br/&gt;Z3 Context]
+        J --&gt; K[cbse-sevm&lt;br/&gt;Execution Loop]
+        K --&gt; L[Path Exploration&lt;br/&gt;Fork &amp; Track]
+        L --&gt; M[cbse-solver&lt;br/&gt;Constraint Solving]
+        M --&gt; N[Collect Results&lt;br/&gt;Traces &amp; Counterexamples]
+        N --&gt; O[Serialize to&lt;br/&gt;result.json]
+    end
+    
+    O -.Transfer.-&gt; P
+    
+    subgraph LOCAL2[" "]
+        P[SFTP Download&lt;br/&gt;result.json]
+        P --&gt; Q[JobResult Object&lt;br/&gt;Local Machine]
+        Q --&gt; R[Parse Results&lt;br/&gt;Test Outcomes]
+        R --&gt; S[cbse-ui&lt;br/&gt;Terminal Display]
+        S --&gt; T[Formatted Output&lt;br/&gt;• Passed Tests&lt;br/&gt;• Failed Tests&lt;br/&gt;• Counterexamples&lt;br/&gt;• Summary]
+    end
+    
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style E fill:#ffe1f5
+    style G fill:#ffcccc
+    style H fill:#ffe1e1
+    style K fill:#ffe1e1
+    style M fill:#ffe1e1
+    style O fill:#ffcccc
+    style P fill:#e1ffe1
+    style S fill:#e1f5ff
+    style T fill:#ccffcc
+</div><hr>
+<h2 id="worker-mode-json-structure">Worker Mode JSON Structure </h2>
+<h3 id="artifactjson-uploaded-to-remote">artifact.json (Uploaded to Remote) </h3>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+  <span class="token property">"contracts"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"Counter"</span><span class="token punctuation">,</span>
+      <span class="token property">"bytecode"</span><span class="token operator">:</span> <span class="token string">"0x608060405234801561001057600080fd5b50..."</span><span class="token punctuation">,</span>
+      <span class="token property">"abi"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">{</span>
+          <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"function"</span><span class="token punctuation">,</span>
+          <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"increment"</span><span class="token punctuation">,</span>
+          <span class="token property">"inputs"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+          <span class="token property">"outputs"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+        <span class="token punctuation">}</span>
+      <span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"test_functions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"test_Increment"</span><span class="token punctuation">,</span> <span class="token string">"testFuzz_SetNumber"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"config"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"verbosity"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">"debug"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"print_setup_states"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"print_traces"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+    <span class="token property">"solver_timeout_ms"</span><span class="token operator">:</span> <span class="token number">30000</span><span class="token punctuation">,</span>
+    <span class="token property">"solver_max_memory"</span><span class="token operator">:</span> <span class="token number">8192</span><span class="token punctuation">,</span>
+    <span class="token property">"loop_bound"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+    <span class="token property">"width_bound"</span><span class="token operator">:</span> <span class="token number">5</span><span class="token punctuation">,</span>
+    <span class="token property">"depth_bound"</span><span class="token operator">:</span> <span class="token number">100</span><span class="token punctuation">,</span>
+    <span class="token property">"array_lengths"</span><span class="token operator">:</span> <span class="token null keyword">null</span><span class="token punctuation">,</span>
+    <span class="token property">"symbolic_storage"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+    <span class="token property">"symbolic_msg_sender"</span><span class="token operator">:</span> <span class="token boolean">false</span>
+  <span class="token punctuation">}</span><span class="token punctuation">,</span>
+  <span class="token property">"job_id"</span><span class="token operator">:</span> <span class="token string">"a1b2c3d4-e5f6-7890-abcd-ef1234567890"</span><span class="token punctuation">,</span>
+  <span class="token property">"timestamp"</span><span class="token operator">:</span> <span class="token string">"2025-11-07T10:30:15Z"</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="resultjson-downloaded-from-remote">result.json (Downloaded from Remote) </h3>
+<pre data-role="codeBlock" data-info="json" class="language-json json"><code><span class="token punctuation">{</span>
+  <span class="token property">"tests"</span><span class="token operator">:</span> <span class="token punctuation">[</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"CounterTest::test_Increment()"</span><span class="token punctuation">,</span>
+      <span class="token property">"passed"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
+      <span class="token property">"gas_used"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">"return_data"</span><span class="token operator">:</span> <span class="token string">""</span><span class="token punctuation">,</span>
+      <span class="token property">"trace"</span><span class="token operator">:</span> <span class="token string">"CALL 0xabcd1234::0x273a7c12() (caller: 0x12345678)\n↩ RETURN 0x"</span><span class="token punctuation">,</span>
+      <span class="token property">"counterexample"</span><span class="token operator">:</span> <span class="token null keyword">null</span>
+    <span class="token punctuation">}</span><span class="token punctuation">,</span>
+    <span class="token punctuation">{</span>
+      <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"CounterTest::testFuzz_SetNumber(uint256)"</span><span class="token punctuation">,</span>
+      <span class="token property">"passed"</span><span class="token operator">:</span> <span class="token boolean">false</span><span class="token punctuation">,</span>
+      <span class="token property">"gas_used"</span><span class="token operator">:</span> <span class="token number">0</span><span class="token punctuation">,</span>
+      <span class="token property">"return_data"</span><span class="token operator">:</span> <span class="token string">"0x4e487b71..."</span><span class="token punctuation">,</span>
+      <span class="token property">"trace"</span><span class="token operator">:</span> <span class="token string">"CALL 0xabcd1234::0xabc12345() (caller: 0x12345678)\n↩ REVERT 0x4e487b71..."</span><span class="token punctuation">,</span>
+      <span class="token property">"counterexample"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+        <span class="token property">"x"</span><span class="token operator">:</span> <span class="token string">"115792089237316195423570985008687907853269984665640564039457584007913129639935"</span>
+      <span class="token punctuation">}</span>
+    <span class="token punctuation">}</span>
+  <span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"summary"</span><span class="token operator">:</span> <span class="token punctuation">{</span>
+    <span class="token property">"total"</span><span class="token operator">:</span> <span class="token number">2</span><span class="token punctuation">,</span>
+    <span class="token property">"passed"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">"failed"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+    <span class="token property">"execution_time_ms"</span><span class="token operator">:</span> <span class="token number">4523</span>
+  <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+<h2 id="user-guide">User Guide </h2>
+<h3 id="installation">Installation </h3>
+<h4 id="prerequisites">Prerequisites </h4>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Install Rust</span>
+<span class="token function">curl</span> <span class="token parameter variable">--proto</span> <span class="token string">'=https'</span> <span class="token parameter variable">--tlsv1.2</span> <span class="token parameter variable">-sSf</span> https://sh.rustup.rs <span class="token operator">|</span> <span class="token function">sh</span>
+
+<span class="token comment"># Install Foundry (for Forge)</span>
+<span class="token function">curl</span> <span class="token parameter variable">-L</span> https://foundry.paradigm.xyz <span class="token operator">|</span> <span class="token function">bash</span>
+foundryup
+
+<span class="token comment"># Install Z3 SMT Solver</span>
+<span class="token comment"># macOS:</span>
+brew <span class="token function">install</span> z3
+
+<span class="token comment"># Ubuntu/Debian:</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> z3 libz3-dev
+
+<span class="token comment"># Fedora:</span>
+<span class="token function">sudo</span> dnf <span class="token function">install</span> z3 z3-devel
+</code></pre><h4 id="build-cbse">Build CBSE </h4>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token function">git</span> clone https://github.com/leojay-net/FM-Rust-Cloud.git
+<span class="token builtin class-name">cd</span> FM-rust-cloud
+<span class="token function">cargo</span> build <span class="token parameter variable">--release</span>
+<span class="token function">cargo</span> <span class="token function">install</span> <span class="token parameter variable">--path</span> crates/cbse
+</code></pre><hr>
+<h3 id="local-execution">Local Execution </h3>
+<h4 id="basic-usage">Basic Usage </h4>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Navigate to your Foundry project</span>
+<span class="token builtin class-name">cd</span> my-project
+
+<span class="token comment"># Run all tests</span>
+cbse <span class="token parameter variable">--function</span> <span class="token string">"test"</span>
+
+<span class="token comment"># Run specific test</span>
+cbse <span class="token parameter variable">--function</span> <span class="token string">"testFuzz_SetNumber"</span>
+
+<span class="token comment"># Run with verbose output</span>
+cbse <span class="token parameter variable">--function</span> <span class="token string">"test"</span> <span class="token parameter variable">-vvv</span>
+
+<span class="token comment"># Run with debugging</span>
+cbse <span class="token parameter variable">--function</span> <span class="token string">"test"</span> <span class="token parameter variable">--debug</span> --print-traces
+</code></pre><h4 id="configuration-options">Configuration Options </h4>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Solver settings</span>
+cbse <span class="token parameter variable">--function</span> <span class="token string">"test"</span> <span class="token punctuation">\</span>
+  --solver-timeout-ms <span class="token number">60000</span> <span class="token punctuation">\</span>
+  --solver-max-memory <span class="token number">16384</span>
+
+<span class="token comment"># Exploration bounds</span>
+cbse <span class="token parameter variable">--function</span> <span class="token string">"test"</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--loop</span> <span class="token number">5</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--width</span> <span class="token number">10</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--depth</span> <span class="token number">200</span>
+
+<span class="token comment"># Symbolic configuration</span>
+cbse <span class="token parameter variable">--function</span> <span class="token string">"test"</span> <span class="token punctuation">\</span>
+  --symbolic-storage <span class="token punctuation">\</span>
+  --symbolic-msg-sender
+
+<span class="token comment"># Array lengths</span>
+cbse <span class="token parameter variable">--function</span> <span class="token string">"test"</span> <span class="token punctuation">\</span>
+  --array-lengths <span class="token string">"MyArray=5,OtherArray=10"</span>
+</code></pre><hr>
+<h3 id="ssh-cloud-execution">SSH Cloud Execution </h3>
+<h4 id="setup-remote-server">Setup Remote Server </h4>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># 1. SSH into your remote server</span>
+<span class="token function">ssh</span> user@remote-server
+
+<span class="token comment"># 2. Install dependencies</span>
+<span class="token function">sudo</span> <span class="token function">apt-get</span> update
+<span class="token function">sudo</span> <span class="token function">apt-get</span> <span class="token function">install</span> <span class="token parameter variable">-y</span> build-essential pkg-config libssl-dev z3 libz3-dev clang
+
+<span class="token comment"># 3. Install Rust</span>
+<span class="token function">curl</span> <span class="token parameter variable">--proto</span> <span class="token string">'=https'</span> <span class="token parameter variable">--tlsv1.2</span> <span class="token parameter variable">-sSf</span> https://sh.rustup.rs <span class="token operator">|</span> <span class="token function">sh</span>
+<span class="token builtin class-name">source</span> <span class="token environment constant">$HOME</span>/.cargo/env
+
+<span class="token comment"># 4. Clone and install CBSE</span>
+<span class="token function">git</span> clone https://github.com/leojay-net/FM-Rust-Cloud.git
+<span class="token builtin class-name">cd</span> FM-rust-cloud
+<span class="token function">cargo</span> <span class="token function">install</span> <span class="token parameter variable">--path</span> crates/cbse
+
+<span class="token comment"># 5. Create symlink (optional)</span>
+<span class="token function">sudo</span> <span class="token function">ln</span> <span class="token parameter variable">-s</span> ~/.cargo/bin/cbse /usr/local/bin/cbse
+
+<span class="token comment"># 6. Verify installation</span>
+cbse <span class="token parameter variable">--version</span>
+</code></pre><h4 id="run-tests-on-remote-server">Run Tests on Remote Server </h4>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># From your local machine</span>
+<span class="token builtin class-name">cd</span> my-project
+
+<span class="token comment"># Run on remote server</span>
+cbse <span class="token parameter variable">--ssh</span> --ssh-host user@remote-server <span class="token parameter variable">--function</span> <span class="token string">"test"</span>
+
+<span class="token comment"># With custom port</span>
+cbse <span class="token parameter variable">--ssh</span> --ssh-host user@remote-server --ssh-port <span class="token number">2222</span> <span class="token parameter variable">--function</span> <span class="token string">"test"</span>
+
+<span class="token comment"># With verbose output</span>
+cbse <span class="token parameter variable">--ssh</span> --ssh-host user@remote-server <span class="token parameter variable">--function</span> <span class="token string">"test"</span> <span class="token parameter variable">-vvv</span>
+
+<span class="token comment"># All configuration options work with SSH</span>
+cbse <span class="token parameter variable">--ssh</span> --ssh-host user@remote-server <span class="token punctuation">\</span>
+  <span class="token parameter variable">--function</span> <span class="token string">"test"</span> <span class="token punctuation">\</span>
+  --solver-timeout-ms <span class="token number">120000</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--loop</span> <span class="token number">10</span> <span class="token punctuation">\</span>
+  <span class="token parameter variable">--debug</span>
+</code></pre><hr>
+<h3 id="how-ssh-mode-works-step-by-step">How SSH Mode Works (Step by Step) </h3>
+<div class="mermaid">graph TD
+    S1[Step 1:&lt;br/&gt;Local Compilation&lt;br/&gt;Forge builds contracts]
+    S1 --&gt; S2[Step 2:&lt;br/&gt;Artifact Upload&lt;br/&gt;SFTP transfer bytecode + config]
+    S2 --&gt; S3[Step 3:&lt;br/&gt;Remote Execution&lt;br/&gt;CBSE runs symbolic analysis]
+    S3 --&gt; S4[Step 4:&lt;br/&gt;Result Download&lt;br/&gt;SFTP transfer results back]
+    S4 --&gt; S5[Step 5:&lt;br/&gt;Cleanup&lt;br/&gt;Remove temp files from remote]
+    S5 --&gt; S6[Step 6:&lt;br/&gt;Display Results&lt;br/&gt;Show in local terminal]
+    
+    style S1 fill:#e1f5ff
+    style S2 fill:#ffe1f5
+    style S3 fill:#ffe1e1
+    style S4 fill:#e1ffe1
+    style S5 fill:#fff4e1
+    style S6 fill:#ccffcc
+</div><p><strong>Advantages:</strong></p>
+<ul>
+<li>No need to sync source code to remote</li>
+<li>No need to install Forge on remote</li>
+<li>Only bytecode is transferred (small payload)</li>
+<li>Full config control from local CLI</li>
+<li>Results displayed locally with same UI</li>
+</ul>
+<hr>
+<h3 id="monitoring-remote-execution">Monitoring Remote Execution </h3>
+<p>On the remote server, you can monitor CBSE execution:</p>
+<pre data-role="codeBlock" data-info="bash" class="language-bash bash"><code><span class="token comment"># Monitor active processes</span>
+<span class="token function">watch</span> <span class="token parameter variable">-n</span> <span class="token number">1</span> <span class="token string">'ps aux | grep cbse'</span>
+
+<span class="token comment"># Monitor job directories</span>
+<span class="token function">watch</span> <span class="token parameter variable">-n</span> <span class="token number">1</span> <span class="token string">'ls -lh /tmp/cbse-jobs/'</span>
+
+<span class="token comment"># View logs (if CBSE is verbose)</span>
+<span class="token function">tail</span> <span class="token parameter variable">-f</span> /tmp/cbse-jobs/*/output.log
+</code></pre><hr>
+<h2 id="example-workflow-finding-a-bug-in-simplevault">Example Workflow: Finding a Bug in SimpleVault </h2>
+<h3 id="contract-code">Contract Code </h3>
+<pre data-role="codeBlock" data-info="solidity" class="language-solidity solidity"><code><span class="token comment">// src/SimpleVault.sol</span>
+<span class="token keyword keyword-contract">contract</span> <span class="token class-name">SimpleVault</span> <span class="token punctuation">{</span>
+    <span class="token keyword keyword-mapping">mapping</span><span class="token punctuation">(</span><span class="token builtin">address</span> <span class="token operator">=&gt;</span> <span class="token builtin">uint256</span><span class="token punctuation">)</span> <span class="token keyword keyword-public">public</span> balances<span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-function">function</span> <span class="token function">deposit</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-external">external</span> <span class="token keyword keyword-payable">payable</span> <span class="token punctuation">{</span>
+        balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span> <span class="token operator">+=</span> msg<span class="token punctuation">.</span>value<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-function">function</span> <span class="token function">withdraw</span><span class="token punctuation">(</span><span class="token builtin">uint256</span> amount<span class="token punctuation">)</span> <span class="token keyword keyword-external">external</span> <span class="token punctuation">{</span>
+        <span class="token keyword keyword-require">require</span><span class="token punctuation">(</span>balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span> <span class="token operator">&gt;=</span> amount<span class="token punctuation">,</span> <span class="token string">"Insufficient balance"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        balances<span class="token punctuation">[</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">]</span> <span class="token operator">-=</span> amount<span class="token punctuation">;</span>  <span class="token comment">// BUG: Should happen AFTER transfer</span>
+        <span class="token keyword keyword-payable">payable</span><span class="token punctuation">(</span>msg<span class="token punctuation">.</span>sender<span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">transfer</span><span class="token punctuation">(</span>amount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><h3 id="test-code">Test Code </h3>
+<pre data-role="codeBlock" data-info="solidity" class="language-solidity solidity"><code><span class="token comment">// test/SimpleVault.t.sol</span>
+<span class="token keyword keyword-contract">contract</span> <span class="token class-name">SimpleVaultTest</span> <span class="token keyword keyword-is">is</span> Test <span class="token punctuation">{</span>
+    SimpleVault vault<span class="token punctuation">;</span>
+
+    <span class="token keyword keyword-function">function</span> <span class="token function">setUp</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token keyword keyword-public">public</span> <span class="token punctuation">{</span>
+        vault <span class="token operator">=</span> <span class="token keyword keyword-new">new</span> <span class="token class-name">SimpleVault</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+
+    <span class="token keyword keyword-function">function</span> <span class="token function">testWithdraw</span><span class="token punctuation">(</span><span class="token builtin">uint256</span> depositAmount<span class="token punctuation">,</span> <span class="token builtin">uint256</span> withdrawAmount<span class="token punctuation">)</span> <span class="token keyword keyword-public">public</span> <span class="token punctuation">{</span>
+        vm<span class="token punctuation">.</span><span class="token function">assume</span><span class="token punctuation">(</span>depositAmount <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        vm<span class="token punctuation">.</span><span class="token function">assume</span><span class="token punctuation">(</span>withdrawAmount <span class="token operator">&gt;</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        vault<span class="token punctuation">.</span>deposit<span class="token punctuation">{</span>value<span class="token punctuation">:</span> depositAmount<span class="token punctuation">}</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        vault<span class="token punctuation">.</span><span class="token function">withdraw</span><span class="token punctuation">(</span>withdrawAmount<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        
+        <span class="token comment">// This should hold, but CBSE will find a counterexample</span>
+        <span class="token keyword keyword-assert">assert</span><span class="token punctuation">(</span><span class="token builtin">address</span><span class="token punctuation">(</span>vault<span class="token punctuation">)</span><span class="token punctuation">.</span>balance <span class="token operator">&gt;=</span> <span class="token number">0</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+</code></pre><hr>
+<h3 id="local-execution-output">Local Execution Output </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>$ cbse --function "testWithdraw" -vvv
+
+   ╔═══════════════════════════════════════════╗
+   ║  CBSE - Complete Blockchain Symbolic     ║
+   ║         Executor (Rust Edition)           ║
+   ╚═══════════════════════════════════════════╝
+
+  Executing testWithdraw(uint256,uint256)
+    
+    ✗ Counterexample found!
+    
+    Symbolic inputs:
+      depositAmount = 100
+      withdrawAmount = 200
+    
+    Trace:
+    CALL SimpleVault::deposit() value=100
+      SSTORE balances[caller] = 100
+    ↩ RETURN
+    
+    CALL SimpleVault::withdraw(200)
+      SLOAD balances[caller] → 100
+      ✓ require(100 &gt;= 200)  ← FAILS
+    ↩ REVERT "Insufficient balance"
+
+Summary: 1 test, 0 passed, 1 failed
+</code></pre><hr>
+<h3 id="ssh-execution-output-same-contract">SSH Execution Output (Same Contract) </h3>
+<pre data-role="codeBlock" data-info="" class="language-text"><code>$ cbse --ssh --ssh-host compute-node --function "testWithdraw" -vvv
+
+Running in SSH mode (remote execution)
+Enter SSH password: ****
+🔌 Connecting to compute-node:22...
+✅ SSH connection established
+📤 Uploading artifacts...
+⚙️  Executing CBSE on remote node...
+
+📋 Remote output:
+   ╔═══════════════════════════════════════════╗
+   ║  CBSE - Complete Blockchain Symbolic     ║
+   ║         Executor (Rust Edition)           ║
+   ╚═══════════════════════════════════════════╝
+
+  Executing testWithdraw(uint256,uint256)
+    
+    ✗ Counterexample found!
+    
+    Symbolic inputs:
+      depositAmount = 100
+      withdrawAmount = 200
+    
+    [... same trace as local ...]
+
+📥 Downloading results...
+✅ Remote execution complete in 3.45s
+
+Summary: 1 test, 0 passed, 1 failed
+</code></pre><p><strong>Identical results!</strong> The only difference is where Z3 solver runs.</p>
+<hr>
+<h2 id="summary">Summary </h2>
+<p>CBSE provides two execution modes for Ethereum symbolic execution:</p>
+<h3 id="local-mode">Local Mode </h3>
+<ul>
+<li><strong>Best for</strong>: Development, debugging, small contracts</li>
+<li><strong>Requires</strong>: Rust, Forge, Z3</li>
+<li><strong>Runs</strong>: Everything on your machine</li>
+</ul>
+<h3 id="ssh-cloud-mode">SSH Cloud Mode </h3>
+<ul>
+<li><strong>Best for</strong>: CI/CD, large contracts, resource-limited local machines</li>
+<li><strong>Requires</strong>: Rust + Forge locally, CBSE + Z3 on remote</li>
+<li><strong>Runs</strong>: Compile locally, execute remotely</li>
+</ul>
+<p>This design allows local-first development with optional cloud offloading for heavy workloads.</p>
+<hr>
+
+      </div>
+      
+      
+    
+    
+    <script type="module">
+// TODO: If ZenUML gets integrated into mermaid in the future,
+//      we can remove the following lines.
+
+
+var MERMAID_CONFIG = ({"startOnLoad":false});
+if (typeof MERMAID_CONFIG !== 'undefined') {
+  MERMAID_CONFIG.startOnLoad = false
+  MERMAID_CONFIG.cloneCssStyles = false
+  MERMAID_CONFIG.theme = "default"
+}
+
+mermaid.initialize(MERMAID_CONFIG || {})
+if (typeof(window['Reveal']) !== 'undefined') {
+  function mermaidRevealHelper(event) {
+    var currentSlide = event.currentSlide
+    var diagrams = currentSlide.querySelectorAll('.mermaid')
+    for (var i = 0; i < diagrams.length; i++) {
+      var diagram = diagrams[i]
+      if (!diagram.hasAttribute('data-processed')) {
+        mermaid.init(null, diagram, ()=> {
+          Reveal.slide(event.indexh, event.indexv)
+        })
+      }
+    }
+  }
+  Reveal.addEventListener('slidetransitionend', mermaidRevealHelper)
+  Reveal.addEventListener('ready', mermaidRevealHelper)
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+} else {
+  await mermaid.run({
+    nodes: document.querySelectorAll('.mermaid')
+  })
+}
+</script>
+    
+    
+    
+  
+    </body></html>

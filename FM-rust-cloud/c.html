@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CBSE Architecture Guide</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+    <style>
+        @media print {
+            @page {
+                size: A4;
+                margin: 2cm;
+            }
+            .no-break {
+                page-break-inside: avoid;
+            }
+            h1, h2, h3 {
+                page-break-after: avoid;
+            }
+            pre {
+                page-break-inside: avoid;
+            }
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+            line-height: 1.6;
+            max-width: 210mm;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+            background: white;
+        }
+
+        h1 {
+            color: #2c3e50;
+            border-bottom: 3px solid #3498db;
+            padding-bottom: 10px;
+            margin-top: 30px;
+        }
+
+        h2 {
+            color: #34495e;
+            border-bottom: 2px solid #95a5a6;
+            padding-bottom: 8px;
+            margin-top: 25px;
+        }
+
+        h3 {
+            color: #555;
+            margin-top: 20px;
+        }
+
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9em;
+        }
+
+        pre {
+            background: #f8f8f8;
+            border: 1px solid #ddd;
+            border-left: 4px solid #3498db;
+            padding: 15px;
+            overflow-x: auto;
+            border-radius: 4px;
+            margin: 15px 0;
+        }
+
+        pre code {
+            background: none;
+            padding: 0;
+        }
+
+        .mermaid {
+            text-align: center;
+            margin: 20px 0;
+            background: white;
+            padding: 20px;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+        }
+
+        blockquote {
+            border-left: 4px solid #3498db;
+            margin: 15px 0;
+            padding: 10px 20px;
+            background: #ecf0f1;
+        }
+
+        ul, ol {
+            margin: 10px 0;
+            padding-left: 30px;
+        }
+
+        li {
+            margin: 5px 0;
+        }
+
+        table {
+            border-collapse: collapse;
+            width: 100%;
+            margin: 15px 0;
+        }
+
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+
+        th {
+            background: #3498db;
+            color: white;
+        }
+
+        .controls {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            z-index: 1000;
+        }
+
+        .btn {
+            background: #3498db;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+            margin: 5px 0;
+            display: block;
+            width: 100%;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        @media print {
+            .controls {
+                display: none;
+            }
+        }
+
+        hr {
+            border: none;
+            border-top: 2px solid #e0e0e0;
+            margin: 30px 0;
+        }
+
+        strong {
+            color: #2c3e50;
+        }
+    </style>
+</head>
+<body>
+    <div class="controls">
+        <button class="btn" onclick="window.print()">📄 Download PDF</button>
+        <button class="btn" onclick="location.reload()">🔄 Reload</button>
+    </div>
+
+    <h1>CBSE Architecture Guide: Complete Blockchain Symbolic Execution</h1>
+
+    <h2>Overview</h2>
+    <p>CBSE (Complete Blockchain Symbolic Executor) is a Rust-based symbolic execution engine for Ethereum smart contracts. It analyzes Solidity code by exploring all possible execution paths to find vulnerabilities, assertion failures, and edge cases that traditional testing might miss.</p>
+
+    <hr>
+
+    <h2>Key Capabilities</h2>
+    <ul>
+        <li><strong>Symbolic Execution</strong>: Explores all code paths using symbolic values instead of concrete inputs</li>
+        <li><strong>Automatic Bug Detection</strong>: Finds overflows, underflows, assertion failures, and reverts</li>
+        <li><strong>Path Exploration</strong>: Discovers counterexamples that violate invariants</li>
+        <li><strong>Dual Execution Modes</strong>: Run locally or offload to remote cloud servers via SSH</li>
+    </ul>
+
+    <hr>
+
+    <h2>Core Philosophy</h2>
+    <p><strong>Traditional Testing:</strong></p>
+    <pre><code>test(5) ✓  test(10) ✓  test(100) ✓  ... (limited coverage)</code></pre>
+
+    <p><strong>Symbolic Execution:</strong></p>
+    <pre><code>test(X) where X ∈ [0, 2^256-1]  (complete coverage)</code></pre>
+
+    <hr>
+
+    <h2>Execution Modes</h2>
+
+    <h3>1. Local Mode (Default)</h3>
+    <p>Execute everything on your local machine:</p>
+    <pre><code class="language-bash">cbse --function "test"</code></pre>
+
+    <p><strong>Use Cases:</strong></p>
+    <ul>
+        <li>Development and debugging</li>
+        <li>Small to medium contracts</li>
+        <li>Quick iteration cycles</li>
+        <li>No network latency concerns</li>
+    </ul>
+
+    <h3>2. SSH Cloud Mode</h3>
+    <p>Compile locally, execute remotely:</p>
+    <pre><code class="language-bash">cbse --ssh --ssh-host node10@node10 --function "test"</code></pre>
+
+    <p><strong>Use Cases:</strong></p>
+    <ul>
+        <li>Large contract suites requiring heavy computation</li>
+        <li>Offloading Z3 solver work to powerful servers</li>
+        <li>Parallel execution across multiple nodes (future)</li>
+        <li>Resource-constrained local machines</li>
+    </ul>
+
+    <hr>
+
+    <h2>System Architecture Overview</h2>
+    <div class="mermaid no-break">
+graph TD
+    A[Solidity Code<br/>.sol files]
+    A --> B[PHASE 1: COMPILATION<br/>Always happens locally]
+    B --> C[cbse-build<br/>Forge Integration]
+    C --> D[Build Artifact<br/>• Bytecode<br/>• ABI<br/>• Storage<br/>• Metadata]
+    
+    D --> E{Execution Mode?}
+    
+    E -->|Local| L1[LOCAL EXECUTION]
+    E -->|SSH| S1[SSH CLOUD MODE]
+    
+    S1 --> S2[cbse-remote<br/>SSH Upload]
+    S2 --> S3[Remote Server<br/>Worker Mode]
+    
+    L1 --> P2[PHASE 2:<br/>SYMBOLIC EXECUTION]
+    S3 --> P2
+    
+    P2 --> J[cbse-sevm<br/>Symbolic EVM]
+    J --> K[Path Exploration<br/>• Fork on branch<br/>• Track paths<br/>• Collect traces]
+    K --> L[cbse-solver Z3<br/>Constraint Solving]
+    L --> M[Test Results<br/>• Pass/Fail<br/>• Traces<br/>• Counterexample]
+    
+    M --> N1{Mode?}
+    N1 -->|Local| N2[Display Locally<br/>cbse-ui]
+    N1 -->|SSH| N3[Download Results<br/>cbse-remote]
+    N3 --> N2
+    
+    style A fill:#e1f5ff
+    style D fill:#fff4e1
+    style P2 fill:#ffe1f5
+    style M fill:#e1ffe1
+    style N2 fill:#f0f0f0
+    </div>
+
+    <hr>
+
+    <h2>Execution Flow</h2>
+
+    <h3>Phase 1: Compilation (Always Local)</h3>
+    <div class="mermaid no-break">
+graph TD
+    U[User runs: cbse --function test]
+    U --> C1[cbse-config<br/>Parse CLI arguments]
+    C1 --> B1[cbse-build executes<br/>forge build --ast<br/>--extra-output storageLayout]
+    B1 --> F1[Forge compiles<br/>Solidity contracts]
+    F1 --> F2[test/Counter.t.sol →<br/>out/Counter.t.sol/CounterTest.json]
+    F2 --> F3[src/Counter.sol →<br/>out/Counter.sol/Counter.json]
+    F3 --> P1[cbse-build parses<br/>JSON artifacts]
+    P1 --> A1[BuildArtifacts struct<br/>• abi: Array<br/>• bytecode: Hex<br/>• deployedBytecode: Hex<br/>• storageLayout: Object<br/>• metadata: Object]
+    
+    style U fill:#e1f5ff
+    style A1 fill:#e1ffe1
+    </div>
+
+    <hr>
+
+    <h3>Phase 2A: Local Execution Flow</h3>
+    <div class="mermaid no-break">
+graph TD
+    START[Start Local Execution]
+    START --> INIT[Initialize SEVM<br/>• Create Z3 context<br/>• Create initial State<br/>• Load bytecode]
+    
+    INIT --> DEPLOY1[Deploy Test Contract<br/>• Create symbolic address<br/>• Store bytecode<br/>• Setup environment]
+    
+    DEPLOY1 --> DEPLOY2[Deploy Target Contracts<br/>• Deploy Counter.sol<br/>• Run constructor<br/>• Store bytecode]
+    
+    DEPLOY2 --> BUILD[Build Function Call<br/>• Calculate selector<br/>• Encode symbolic args<br/>• Create calldata]
+    
+    BUILD --> EXEC[Execute Test Function<br/>Start SEVM Loop]
+    
+    EXEC --> OP1[OPCODE: PUSH1 0x80<br/>Create symbolic value<br/>Push to stack]
+    
+    OP1 --> OP2[OPCODE: MSTORE<br/>Update memory offset]
+    
+    OP2 --> OP3[OPCODE: CALLDATALOAD<br/>Load symbolic x from calldata]
+    
+    OP3 --> OP4[OPCODE: SSTORE<br/>Storage contract 0 = symbolic x]
+    
+    OP4 --> BRANCH{OPCODE: JUMPI<br/>Conditional Branch?}
+    
+    BRANCH -->|True| PATH1[Path 1:<br/>branch_condition == true<br/>Add constraint]
+    BRANCH -->|False| PATH2[Path 2:<br/>branch_condition == false<br/>Add constraint]
+    
+    PATH1 --> SAT1{Z3 SAT Check<br/>Path 1}
+    PATH2 --> SAT2{Z3 SAT Check<br/>Path 2}
+    
+    SAT1 -->|SAT| CONT1[Continue<br/>Execution Path 1]
+    SAT1 -->|UNSAT| PRUNE1[Prune Path 1<br/>Infeasible]
+    
+    SAT2 -->|SAT| CONT2[Continue<br/>Execution Path 2]
+    SAT2 -->|UNSAT| PRUNE2[Prune Path 2<br/>Infeasible]
+    
+    CONT1 --> CHECK1{Assertion/Revert?}
+    CONT2 --> CHECK2{Assertion/Revert?}
+    
+    CHECK1 -->|Yes| FAIL1[REVERT Detected<br/>Record trace<br/>Extract counterexample]
+    CHECK1 -->|No| PASS1[Continue to completion]
+    
+    CHECK2 -->|Yes| FAIL2[REVERT Detected<br/>Record trace<br/>Extract counterexample]
+    CHECK2 -->|No| PASS2[Continue to completion]
+    
+    FAIL1 --> RESULT[Aggregate Test Results]
+    FAIL2 --> RESULT
+    PASS1 --> RESULT
+    PASS2 --> RESULT
+    PRUNE1 --> RESULT
+    PRUNE2 --> RESULT
+    
+    RESULT --> UI[Display in Terminal<br/>cbse-ui<br/>• Passed tests<br/>• Failed tests<br/>• Counterexamples]
+    
+    style START fill:#e1f5ff
+    style BRANCH fill:#ffe1e1
+    style SAT1 fill:#fff4e1
+    style SAT2 fill:#fff4e1
+    style FAIL1 fill:#ffcccc
+    style FAIL2 fill:#ffcccc
+    style UI fill:#e1ffe1
+    </div>
+
+    <hr>
+
+    <h3>Phase 2B: SSH Cloud Execution Flow</h3>
+    <div class="mermaid no-break">
+graph TD
+    START[User runs: cbse --ssh<br/>--ssh-host user@server<br/>--function test]
+    
+    START --> LOCAL1[LOCAL: Compilation<br/>Steps 1-3 same as local mode]
+    
+    LOCAL1 --> LOCAL2[LOCAL: cbse-remote<br/>Create JobArtifact]
+    
+    LOCAL2 --> JOB[JobArtifact Structure:<br/>• contracts array<br/>• config object<br/>• job_id uuid<br/>• timestamp]
+    
+    JOB --> SERIAL[Serialize to<br/>artifact.json]
+    
+    SERIAL --> CONN[LOCAL: Establish<br/>SSH Connection<br/>• Prompt for password<br/>• TCP connection<br/>• Authentication]
+    
+    CONN --> UPLOAD[LOCAL: SFTP Upload<br/>artifact.json →<br/>/tmp/cbse-jobs/uuid/]
+    
+    UPLOAD --> EXEC[LOCAL: Execute<br/>Remote Command<br/>/usr/local/bin/cbse<br/>--worker-mode<br/>--input artifact.json<br/>--output result.json]
+    
+    EXEC --> REMOTE1[REMOTE: Worker Mode Starts]
+    
+    REMOTE1 --> REMOTE2[REMOTE: Deserialize<br/>artifact.json]
+    
+    REMOTE2 --> REMOTE3[REMOTE: Initialize<br/>Z3 Context]
+    
+    REMOTE3 --> REMOTE4[REMOTE: Execute Tests<br/>Same as Local Phase 2A<br/>Steps 2-4]
+    
+    REMOTE4 --> REMOTE5[REMOTE: Symbolic<br/>Execution Loop<br/>• Deploy contracts<br/>• Execute functions<br/>• Fork paths<br/>• Check constraints<br/>• Collect results]
+    
+    REMOTE5 --> REMOTE6[REMOTE: Serialize Results<br/>to result.json]
+    
+    REMOTE6 --> RESULT[Result JSON:<br/>• tests array<br/>• passed boolean<br/>• traces<br/>• counterexamples<br/>• summary]
+    
+    RESULT --> EXIT[REMOTE: Exit Worker<br/>Code 0 pass or 1 fail]
+    
+    EXIT --> DOWNLOAD[LOCAL: SFTP Download<br/>result.json from<br/>/tmp/cbse-jobs/uuid/]
+    
+    DOWNLOAD --> CLEANUP[LOCAL: Remote Cleanup<br/>rm -rf /tmp/cbse-jobs/uuid/]
+    
+    CLEANUP --> PARSE[LOCAL: Parse<br/>result.json]
+    
+    PARSE --> DISPLAY[LOCAL: Display Results<br/>cbse-ui<br/>Same as local mode]
+    
+    style START fill:#e1f5ff
+    style LOCAL1 fill:#e1f5ff
+    style LOCAL2 fill:#e1f5ff
+    style CONN fill:#fff4e1
+    style UPLOAD fill:#ffe1f5
+    style REMOTE1 fill:#ffe1e1
+    style REMOTE2 fill:#ffe1e1
+    style REMOTE3 fill:#ffe1e1
+    style REMOTE4 fill:#ffe1e1
+    style REMOTE5 fill:#ffe1e1
+    style REMOTE6 fill:#ffe1e1
+    style DOWNLOAD fill:#ffe1f5
+    style DISPLAY fill:#e1ffe1
+    </div>
+
+    <hr>
+
+    <h2>Data Flow Diagrams</h2>
+
+    <h3>Local Mode Data Flow (Vertical)</h3>
+    <div class="mermaid no-break">
+graph TD
+    A[Solidity Source Files<br/>.sol]
+    
+    A -->|cbse-build| B[BuildArtifacts]
+    
+    B1[BuildArtifacts Contents:<br/>• bytecode: Vec u8<br/>• abi: Vec AbiItem<br/>• storage: StorageLayout]
+    B --> B1
+    
+    B1 -->|main.rs| C[Iterate Each Test Function]
+    
+    C -->|cbse-sevm| D[SEVM Initialization]
+    
+    D1[SEVM Components:<br/>• Context Z3<br/>• State stack, memory, storage<br/>• Contract bytecode]
+    D --> D1
+    
+    D1 -->|cbse-calldata| E[Build Function Call]
+    
+    E1[Function Call:<br/>• selector: u8; 4<br/>• args: Vec CbseBitVec]
+    E --> E1
+    
+    E1 -->|cbse-sevm opcodes| F[Execution Loop]
+    
+    F --> G{Conditional Branch?}
+    
+    G -->|Yes| H[Path 1<br/>Constraints:<br/>Vec Z3Bool]
+    G -->|Yes| I[Path 2<br/>Constraints:<br/>Vec Z3Bool]
+    G -->|No| J[Continue Single Path]
+    
+    H -->|cbse-solver| K{SAT Check Path 1}
+    I -->|cbse-solver| L{SAT Check Path 2}
+    J -->|cbse-solver| M{SAT Check}
+    
+    K -->|SAT| N[Continue Path 1]
+    K -->|UNSAT| O[Prune Path 1]
+    
+    L -->|SAT| P[Continue Path 2]
+    L -->|UNSAT| Q[Prune Path 2]
+    
+    M -->|SAT| R[Continue]
+    M -->|UNSAT| S[Prune]
+    
+    N -->|cbse-traces| T[Trace Recording]
+    P -->|cbse-traces| T
+    R -->|cbse-traces| T
+    
+    T1[Trace Events:<br/>• CALL<br/>• SLOAD<br/>• SSTORE<br/>• REVERT]
+    T --> T1
+    
+    T1 -->|main.rs| U[TestResult]
+    
+    U1[TestResult:<br/>• passed: bool<br/>• trace: String<br/>• counterexample: Option Model]
+    U --> U1
+    
+    U1 -->|cbse-ui| V[Terminal Output<br/>Formatted Display]
+    
+    style A fill:#e1f5ff
+    style B1 fill:#fff4e1
+    style D1 fill:#ffe1f5
+    style E1 fill:#e1ffe1
+    style G fill:#ffcccc
+    style K fill:#fff4e1
+    style L fill:#fff4e1
+    style M fill:#fff4e1
+    style T1 fill:#e1f5ff
+    style U1 fill:#ffe1e1
+    style V fill:#e1ffe1
+    </div>
+
+    <hr>
+
+    <h3>SSH Cloud Mode Data Flow (Vertical)</h3>
+    <div class="mermaid no-break">
+graph TD
+    subgraph LOCAL[" "]
+        A[Solidity Source<br/>Local Machine]
+        A --> B[cbse-build<br/>Compilation]
+        B --> C[BuildArtifacts<br/>Local]
+        C --> D[cbse-remote<br/>Job Creation]
+        D --> E[JobArtifact Object<br/>• contracts<br/>• config<br/>• metadata]
+        E --> F[Serialize to<br/>artifact.json]
+        F --> G[SFTP Upload<br/>SSH Connection]
+    end
+    
+    G -.Transfer.-> H
+    
+    subgraph REMOTE[" "]
+        H[artifact.json<br/>Remote Server]
+        H --> I[cbse --worker-mode<br/>Deserialize]
+        I --> J[Initialize<br/>Z3 Context]
+        J --> K[cbse-sevm<br/>Execution Loop]
+        K --> L[Path Exploration<br/>Fork & Track]
+        L --> M[cbse-solver<br/>Constraint Solving]
+        M --> N[Collect Results<br/>Traces & Counterexamples]
+        N --> O[Serialize to<br/>result.json]
+    end
+    
+    O -.Transfer.-> P
+    
+    subgraph LOCAL2[" "]
+        P[SFTP Download<br/>result.json]
+        P --> Q[JobResult Object<br/>Local Machine]
+        Q --> R[Parse Results<br/>Test Outcomes]
+        R --> S[cbse-ui<br/>Terminal Display]
+        S --> T[Formatted Output<br/>• Passed Tests<br/>• Failed Tests<br/>• Counterexamples<br/>• Summary]
+    end
+    
+    style A fill:#e1f5ff
+    style C fill:#fff4e1
+    style E fill:#ffe1f5
+    style G fill:#ffcccc
+    style H fill:#ffe1e1
+    style K fill:#ffe1e1
+    style M fill:#ffe1e1
+    style O fill:#ffcccc
+    style P fill:#e1ffe1
+    style S fill:#e1f5ff
+    style T fill:#ccffcc
+    </div>
+
+    <hr>
+
+    <h2>Worker Mode JSON Structure</h2>
+
+    <h3>artifact.json (Uploaded to Remote)</h3>
+    <pre><code>{
+  "contracts": [
+    {
+      "name": "Counter",
+      "bytecode": "0x608060405234801561001057600080fd5b50...",
+      "abi": [
+        {
+          "type": "function",
+          "name": "increment",
+          "inputs": [],
+          "outputs": []
+        }
+      ],
+      "test_functions": ["test_Increment", "testFuzz_SetNumber"]
+    }
+  ],
+  "config": {
+    "verbosity": 3,
+    "debug": false,
+    "print_setup_states": false,
+    "print_traces": true,
+    "solver_timeout_ms": 30000,
+    "solver_max_memory": 8192,
+    "loop_bound": 3,
+    "width_bound": 5,
+    "depth_bound": 100,
+    "array_lengths": null,
+    "symbolic_storage": false,
+    "symbolic_msg_sender": false
+  },
+  "job_id": "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
+  "timestamp": "2025-11-07T10:30:15Z"
+}</code></pre>
+
+    <h3>result.json (Downloaded from Remote)</h3>
+    <pre><code>{
+  "tests": [
+    {
+      "name": "CounterTest::test_Increment()",
+      "passed": true,
+      "gas_used": 0,
+      "return_data": "",
+      "trace": "CALL 0xabcd1234::0x273a7c12() (caller: 0x12345678)\n↩ RETURN 0x",
+      "counterexample": null
+    },
+    {
+      "name": "CounterTest::testFuzz_SetNumber(uint256)",
+      "passed": false,
+      "gas_used": 0,
+      "return_data": "0x4e487b71...",
+      "trace": "CALL 0xabcd1234::0xabc12345() (caller: 0x12345678)\n↩ REVERT 0x4e487b71...",
+      "counterexample": {
+        "x": "115792089237316195423570985008687907853269984665640564039457584007913129639935"
+      }
+    }
+  ],
+  "summary": {
+    "total": 2,
+    "passed": 1,
+    "failed": 1,
+    "execution_time_ms": 4523
+  }
+}</code></pre>
+
+    <hr>
+
+    <h2>User Guide</h2>
+
+    <h3>Installation</h3>
+
+    <h4>Prerequisites</h4>
+    <pre><code class="language-bash"># Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+
+# Install Foundry (for Forge)
+curl -L https://foundry.paradigm.xyz | bash
+foundryup
+
+# Install Z3 SMT Solver
+# macOS:
+brew install z3
+
+# Ubuntu/Debian:
+sudo apt-get install z3 libz3-dev
+
+# Fedora:
+sudo dnf install z3 z3-devel</code></pre>
+
+    <h4>Build CBSE</h4>
+    <pre><code class="language-bash">git clone https://github.com/leojay-net/FM-Rust-Cloud.git
+cd FM-rust-cloud
+cargo build --release
+cargo install --path crates/cbse</code></pre>
+
+    <hr>
+
+    <h3>Local Execution</h3>
+
+    <h4>Basic Usage</h4>
+    <pre><code class="language-bash"># Navigate to your Foundry project
+cd my-project
+
+# Run all tests
+cbse --function "test"
+
+# Run specific test
+cbse --function "testFuzz_SetNumber"
+
+# Run with verbose output
+cbse --function "test" -vvv
+
+# Run with debugging
+cbse --function "test" --debug --print-traces</code></pre>
+
+    <h4>Configuration Options</h4>
+    <pre><code class="language-bash"># Solver settings
+cbse --function "test" \
+  --solver-timeout-ms 60000 \
+  --solver-max-memory 16384
+
+# Exploration bounds
+cbse --function "test" \
+  --loop 5 \
+  --width 10 \
+  --depth 200
+
+# Symbolic configuration
+cbse --function "test" \
+  --symbolic-storage \
+  --symbolic-msg-sender
+
+# Array lengths
+cbse --function "test" \
+  --array-lengths "MyArray=5,OtherArray=10"</code></pre>
+
+    <hr>
+
+    <h3>SSH Cloud Execution</h3>
+
+    <h4>Setup Remote Server</h4>
+    <pre><code class="language-bash"># 1. SSH into your remote server
+ssh user@remote-server
+
+# 2. Install dependencies
+sudo apt-get update
+sudo apt-get install -y build-essential pkg-config libssl-dev z3 libz3-dev clang
+
+# 3. Install Rust
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
+source $HOME/.cargo/env
+
+# 4. Clone and install CBSE
+git clone https://github.com/leojay-net/FM-Rust-Cloud.git
+cd FM-rust-cloud
+cargo install --path crates/cbse
+
+# 5. Create symlink (optional)
+sudo ln -s ~/.cargo/bin/cbse /usr/local/bin/cbse
+
+# 6. Verify installation
+cbse --version</code></pre>
+
+    <h4>Run Tests on Remote Server</h4>
+    <pre><code class="language-bash"># From your local machine
+cd my-project
+
+# Run on remote server
+cbse --ssh --ssh-host user@remote-server --function "test"
+
+# With custom port
+cbse --ssh --ssh-host user@remote-server --ssh-port 2222 --function "test"
+
+# With verbose output
+cbse --ssh --ssh-host user@remote-server --function "test" -vvv
+
+# All configuration options work with SSH
+cbse --ssh --ssh-host user@remote-server \
+  --function "test" \
+  --solver-timeout-ms 120000 \
+  --loop 10 \
+  --debug</code></pre>
+
+    <hr>
+
+    <h3>How SSH Mode Works (Step by Step)</h3>
+    <div class="mermaid no-break">
+graph TD
+    S1[Step 1:<br/>Local Compilation<br/>Forge builds contracts]
+    S1 --> S2[Step 2:<br/>Artifact Upload<br/>SFTP transfer bytecode + config]
+    S2 --> S3[Step 3:<br/>Remote Execution<br/>CBSE runs symbolic analysis]
+    S3 --> S4[Step 4:<br/>Result Download<br/>SFTP transfer results back]
+    S4 --> S5[Step 5:<br/>Cleanup<br/>Remove temp files from remote]
+    S5 --> S6[Step 6:<br/>Display Results<br/>Show in local terminal]
+    
+    style S1 fill:#e1f5ff
+    style S2 fill:#ffe1f5
+    style S3 fill:#ffe1e1
+    style S4 fill:#e1ffe1
+    style S5 fill:#fff4e1
+    style S6 fill:#ccffcc
+    </div>
+
+    <p><strong>Advantages:</strong></p>
+    <ul>
+        <li>No need to sync source code to remote</li>
+        <li>No need to install Forge on remote</li>
+        <li>Only bytecode is transferred (small payload)</li>
+        <li>Full config control from local CLI</li>
+        <li>Results displayed locally with same UI</li>
+    </ul>
+
+    <hr>
+
+    <h3>Monitoring Remote Execution</h3>
+    <p>On the remote server, you can monitor CBSE execution:</p>
+    <pre><code class="language-bash"># Monitor active processes
+watch -n 1 'ps aux | grep cbse'
+
+# Monitor job directories
+watch -n 1 'ls -lh /tmp/cbse-jobs/'
+
+# View logs (if CBSE is verbose)
+tail -f /tmp/cb

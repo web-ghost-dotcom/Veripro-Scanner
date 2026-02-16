@@ -1,0 +1,12 @@
+[package]
+name = "cbse-assertions"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+z3 = "0.12"
+regex = "1.10"
+cbse-exceptions = { path = "../cbse-exceptions" }
+cbse-utils = { path = "../cbse-utils" }
+cbse-bitvec = { path = "../cbse-bitvec" }
+cbse-bytevec = { path = "../cbse-bytevec" }

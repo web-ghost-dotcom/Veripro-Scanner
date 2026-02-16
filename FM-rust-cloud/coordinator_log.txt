@@ -1,0 +1,24 @@
+warning: unused import: `Signer`
+ --> crates/cbse-protocol/src/lib.rs:3:68
+  |
+3 | use k256::ecdsa::{SigningKey, Signature, VerifyingKey, signature::{Signer, hazmat::PrehashSigner}};
+  |                                                                    ^^^^^^
+  |
+  = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `cbse-protocol` (lib) generated 1 warning (run `cargo fix --lib -p cbse-protocol` to apply 1 suggestion)
+warning: unused import: `std::path::Path`
+  --> crates/cbse-coordinator/src/main.rs:10:5
+   |
+10 | use std::path::Path;
+   |     ^^^^^^^^^^^^^^^
+   |
+   = note: `#[warn(unused_imports)]` (part of `#[warn(unused)]`) on by default
+
+warning: `cbse-coordinator` (bin "cbse-coordinator") generated 1 warning (run `cargo fix --bin "cbse-coordinator"` to apply 1 suggestion)
+    Finished `dev` profile [unoptimized + debuginfo] target(s) in 0.53s
+     Running `target/debug/cbse-coordinator`
+Coordinator listening on 127.0.0.1:3001
+Received job request for contract: Vault
+Compiling in /tmp/cbse-jobs/8a74514d-cb40-4de0-8f51-ac61f1ce41df...
+Running prover on /tmp/cbse-jobs/8a74514d-cb40-4de0-8f51-ac61f1ce41df

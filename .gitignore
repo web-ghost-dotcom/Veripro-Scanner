@@ -1,0 +1,9 @@
+target/
+.env
+.DS_Store
+.idea/
+.vscode/
+.cursor/
+doc.md
+flow.md
+index.html

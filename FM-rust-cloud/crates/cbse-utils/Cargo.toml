@@ -1,0 +1,12 @@
+[package]
+name = "cbse-utils"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+colored = "2.1"
+regex = "1.10"
+hex = "0.4"
+cbse-bitvec = { path = "../cbse-bitvec" }
+z3 = "0.12"
+anyhow = "1.0"

@@ -1,0 +1,46 @@
+ssh node10@node10
+
+#git clone or move zip file to remote server
+git clone <repo_url.git>
+
+# create symlink
+sudo ln -s ~/.cargo/bin/cbse /usr/local/bin/cbse
+
+
+# Log-style monitoring (appends, doesn't clear)
+while true; do 
+  timestamp=$(date '+%H:%M:%S.%3N')
+  
+  # Check for active CBSE processes
+  cbse_procs=$(ps aux | grep -E "cbse.*worker" | grep -v grep | wc -l)
+  z3_procs=$(ps aux | grep "z3" | grep -v grep | wc -l)
+  
+  # Check for new job directories
+  job_count=$(ls -1 /tmp/cbse-jobs/ 2>/dev/null | wc -l)
+  
+  # Only print if there's activity
+  if [ $cbse_procs -gt 0 ] || [ $z3_procs -gt 0 ] || [ $job_count -gt 0 ]; then
+    echo "[$timestamp] CBSE:$cbse_procs Z3:$z3_procs Jobs:$job_count"
+    
+    # Show process details when active
+    if [ $cbse_procs -gt 0 ]; then
+      ps aux | grep -E "cbse.*worker" | grep -v grep | awk '{print "  ├─ CBSE:", $11, $12, $13, $14}'
+    fi
+    
+    if [ $z3_procs -gt 0 ]; then
+      ps aux | grep "z3" | grep -v grep | awk '{print "  ├─ Z3:", $11, $12, $13}'
+    fi
+    
+    # Show new jobs
+    if [ $job_count -gt 0 ]; then
+      ls -1t /tmp/cbse-jobs/ 2>/dev/null | head -3 | while read job; do
+        echo "  └─ Job: $job"
+      done
+    fi
+    echo ""
+  fi
+  
+  sleep 0.2
+done
+
+cbse --ssh --ssh-host node10@node10 --function "test" -vvvv

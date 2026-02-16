@@ -1,0 +1,123 @@
+@import "tailwindcss";
+
+/*
+  GLOBAL BASE STYLES
+  We previously zeroed all margins via * selector which removed natural spacing from headings and paragraphs.
+  Restore intentional rhythm while keeping a sharp, minimal aesthetic.
+*/
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: #000;
+  /* Pure black backdrop */
+  color: #fff;
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  font-feature-settings: "liga" 1, "kern" 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  margin: 0;
+}
+
+/* Typography scale (light, technical feel) */
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-weight: 300;
+  line-height: 1.1;
+  margin: 0 0 .75em;
+  letter-spacing: -0.5px;
+}
+
+p {
+  margin: 0 0 1.25em;
+  line-height: 1.5;
+}
+
+ul,
+ol {
+  margin: 0 0 1.25em 1.25em;
+}
+
+code,
+pre {
+  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Monaco, Consolas, monospace;
+  font-size: .95em;
+}
+
+pre {
+  background: #050505;
+  padding: 1rem;
+  border: 1px solid #181818;
+  overflow-x: auto;
+  margin: 0 0 1.75em;
+}
+
+/* Links: subtle until hovered */
+a {
+  color: inherit;
+  text-decoration: none;
+  transition: color .2s ease;
+}
+
+a:hover {
+  color: #ddd;
+}
+
+/* Layout helpers */
+section {
+  position: relative;
+}
+
+.content-width {
+  width: 100%;
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 0 1.75rem;
+}
+
+/* Accessibility: reduce motion preference */
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition: none !important;
+  }
+}
+
+/* Custom utility: border width for play triangle */
+.border-l-12 {
+  border-left-width: 12px;
+}
+
+/* Canvas backgrounds should sit behind interactive content */
+canvas {
+  display: block;
+}
+
+.r3f-bg {
+  pointer-events: none;
+}
+
+/* Improve contrast for subtle grid lines if added later */
+.divider {
+  border-color: #111;
+}
+
+/* Prevent accidental image dragging ghost effects */
+img {
+  user-select: none;
+}
