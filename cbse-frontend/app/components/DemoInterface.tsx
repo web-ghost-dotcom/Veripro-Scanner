@@ -127,7 +127,8 @@ export default function DemoInterface() {
                 abi: ATTESTATION_REGISTRY_ABI,
                 functionName: 'commitAttestation',
                 args: [resultHash, passed, contractHash, v, r, s],
-                account
+                account,
+                gas: BigInt(200000) // Explicitly set reasonable gas limit
             });
 
             setTxHash(hash);
